@@ -1,0 +1,36 @@
+{% extends "employe/base.html" %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+<div class="max-w-sm mx-auto space-y-6">
+    <div>
+        <h1 class="text-2xl font-bold">Connexion</h1>
+        <p class="opacity-80 mt-1">Connectez-vous pour gérer les employés.</p>
+    </div>
+
+    <form method="post" action="{% url 'connexion_demo' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary w-full">Essayer la démo — sans compte</button>
+    </form>
+
+    <div class="divider">ou</div>
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        <div class="alert alert-error alert-soft" role="alert">Identifiant ou mot de passe incorrect.</div>
+        {% endif %}
+        <div class="space-y-1">
+            <label for="{{ form.username.id_for_label }}" class="block font-medium">Identifiant</label>
+            <input type="text" name="username" id="{{ form.username.id_for_label }}" class="input w-full" autocomplete="username" required value="{{ form.username.value|default:'' }}">
+        </div>
+        <div class="space-y-1">
+            <label for="{{ form.password.id_for_label }}" class="block font-medium">Mot de passe</label>
+            <input type="password" name="password" id="{{ form.password.id_for_label }}" class="input w-full" autocomplete="current-password" required>
+        </div>
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit" class="btn btn-ghost w-full">Se connecter</button>
+    </form>
+</div>
+{% endblock %}

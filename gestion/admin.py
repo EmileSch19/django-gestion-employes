@@ -1,6 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
-from.models import *
+from .models import Employe
 
-admin.site.register(Employe)
+
+@admin.register(Employe)
+class EmployeAdmin(admin.ModelAdmin):
+    list_display = ('nom', 'email', 'poste', 'salaire')
+    search_fields = ('nom', 'email', 'poste')
