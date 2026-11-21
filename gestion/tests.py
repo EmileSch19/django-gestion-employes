@@ -43,6 +43,20 @@ class CrudTests(TestCase):
         self.assertEqual(Employe.objects.count(), 0)
         self.assertTrue(response.context['form'].errors)
 
+    def test_recherche_et_chiffres_cles(self):
+        Employe.objects.create(nom='Alice Durand', email='alice@exemple.fr', poste='Développeuse', salaire=Decimal('3000'))
+        Employe.objects.create(nom='Bob Martin', email='bob@exemple.fr', poste='Support', salaire=Decimal('2000'))
+        response = self.client.get(reverse('liste_employes'), {'q': 'support'})
+        self.assertEqual([e.nom for e in response.context['employes']], ['Bob Martin'])
+        self.assertEqual(response.context['stats']['effectif'], 2)
+        self.assertEqual(response.context['stats']['masse'], Decimal('5000'))
+        self.assertEqual(response.context['stats']['moyenne'], Decimal('2500'))
+
+    def test_erreur_reliee_au_champ(self):
+        response = self.client.post(reverse('ajouter_employe'), {'nom': '', 'email': 'x', 'poste': 'Dev', 'salaire': '1'})
+        self.assertContains(response, 'aria-invalid="true"')
+        self.assertContains(response, 'id="id_email-error"')
+
     def test_modification_et_suppression(self):
         emp = Employe.objects.create(nom='Bob', email='bob@exemple.fr', poste='Support', salaire=Decimal('2000'))
         self.client.post(reverse('modifier_employe', args=[emp.id]), {

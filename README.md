@@ -7,6 +7,8 @@ Application Django de gestion des employés (CRUD complet) avec connexion et com
 ## Fonctionnalités
 
 - Liste, ajout, modification et suppression d'employés (nom, e-mail, poste, salaire)
+- Recherche (nom, poste, e-mail) et chiffres clés : effectif, masse salariale, salaire moyen
+- Mode clair / sombre (préférence système, choix mémorisé)
 - Validation des formulaires avec messages d'erreur (e-mail valide, salaire positif)
 - Accès réservé aux utilisateurs connectés ; compte démo en un clic, données de démo restaurables
 - Administration Django (`/admin/`)
@@ -14,7 +16,7 @@ Application Django de gestion des employés (CRUD complet) avec connexion et com
 
 ## Stack
 
-Python · Django 6 · PostgreSQL (Neon) en production, SQLite en local · DaisyUI / Tailwind (CDN) · WhiteNoise · Vercel
+Python · Django 6 · PostgreSQL (Neon) en production, SQLite en local · CSS maison (thème « Prune » clair/sombre) · WhiteNoise · Vercel
 
 ## Lancer en local
 

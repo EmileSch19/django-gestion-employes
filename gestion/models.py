@@ -19,3 +19,7 @@ class Employe(models.Model):
 
     def __str__(self):
         return self.nom
+
+    @property
+    def initiales(self):
+        return "".join(mot[0] for mot in self.nom.split()[:2]).upper()

@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.db.models import Avg, Count, Q, Sum
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
@@ -11,8 +12,19 @@ from .models import Employe
 
 @login_required
 def liste_employes(request):
+    q = request.GET.get('q', '').strip()[:80]
     employes = Employe.objects.all()
-    return render(request, 'employe/list.html', {'employes': employes})
+    if q:
+        employes = employes.filter(Q(nom__icontains=q) | Q(poste__icontains=q) | Q(email__icontains=q))
+
+    # Chiffres clés calculés sur l'ensemble des employés (pas seulement la recherche)
+    agg = Employe.objects.aggregate(effectif=Count('id'), masse=Sum('salaire'), moyenne=Avg('salaire'))
+    stats = {
+        'effectif': agg['effectif'],
+        'masse': agg['masse'] or 0,
+        'moyenne': agg['moyenne'] or 0,
+    }
+    return render(request, 'employe/list.html', {'employes': employes, 'q': q, 'stats': stats})
 
 
 @login_required
