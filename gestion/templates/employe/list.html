@@ -1,38 +1,41 @@
 {% extends "employe/base.html" %}
 
 {% block content %}
-
-<div class="w-full bg-base-200">
-    <div class="mb-4">
-        <a href="{% url 'ajouter_employe' %}" class="btn btn-primary w-full">
-            Ajouter un employé
-        </a>
-    </div>
-
-    <div class="space-y-4 w-full">
-        {% for emp in employes %}
-        <div class="p-4 bg-base-100 rounded-lg w-full flex justify-between items-center">
-            <div class="space-y-2">
-                <p class="font-bold text-lg">{{ emp.nom }}</p>
-                <p class="badge badge-soft badge-primary">{{ emp.email }}</p>
-            </div>
-
-            <div class="flex gap-2">
-                <p class="badge badge-soft badge-primary">{{ emp.poste }}</p>
-                <p class="badge badge-dash badge-primary">{{ emp.salaire }} €</p>
-            </div>
-
-            <div class="space-x-2">
-                <a href="{% url 'modifier_employe' emp.id %}" class="btn btn-primary btn-sm">
-                    Modifier
-                </a>
-                <a href="{% url 'supprimer_employe' emp.id %}" class="btn btn-primary btn-soft btn-sm">
-                    Supprimer
-                </a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+<div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+    <h1 class="text-2xl font-bold">Employés <span class="opacity-60 text-base font-normal">({{ employes|length }})</span></h1>
+    <a href="{% url 'ajouter_employe' %}" class="btn btn-primary">Ajouter un employé</a>
 </div>
 
+<ul class="space-y-3">
+    {% for emp in employes %}
+    <li class="p-4 bg-base-100 rounded-lg flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div class="space-y-1">
+            <p class="font-bold text-lg">{{ emp.nom }}</p>
+            <p class="text-sm opacity-80">{{ emp.email }}</p>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+            <span class="badge badge-soft badge-primary">{{ emp.poste }}</span>
+            <span class="badge badge-dash badge-primary">{{ emp.salaire }} €</span>
+        </div>
+
+        <div class="flex gap-2">
+            <a href="{% url 'modifier_employe' emp.id %}" class="btn btn-primary btn-sm">Modifier</a>
+            <a href="{% url 'supprimer_employe' emp.id %}" class="btn btn-error btn-soft btn-sm">Supprimer</a>
+        </div>
+    </li>
+    {% empty %}
+    <li class="p-6 bg-base-100 rounded-lg text-center">
+        <p class="mb-3">Aucun employé pour l’instant.</p>
+        <a href="{% url 'ajouter_employe' %}" class="btn btn-primary btn-sm">Ajouter le premier</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% if user.username == "demo" %}
+<form method="post" action="{% url 'reinitialiser_demo' %}" class="mt-6 text-center">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-ghost btn-sm">Restaurer les données de démonstration</button>
+</form>
+{% endif %}
 {% endblock %}
