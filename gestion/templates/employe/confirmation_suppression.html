@@ -1,16 +1,17 @@
 {% extends "employe/base.html" %}
 
 {% block title %}Supprimer {{ emp.nom }}{% endblock %}
+{% block content_class %}narrow{% endblock %}
 
 {% block content %}
-<div class="p-6 bg-base-100 rounded-lg space-y-4">
-    <h1 class="text-xl font-bold">Supprimer un employé</h1>
+<div class="box form-box">
+    <h1 class="h2">Supprimer un employé</h1>
     <p>Voulez-vous vraiment supprimer <strong>{{ emp.nom }}</strong> ? Cette action est définitive.</p>
 
-    <form method="post" action="{% url 'supprimer_employe' emp.id %}" class="flex gap-2">
+    <form method="post" action="{% url 'supprimer_employe' emp.id %}" class="form-actions">
         {% csrf_token %}
-        <button type="submit" class="btn btn-error btn-sm">Oui, supprimer</button>
-        <a href="{% url 'liste_employes' %}" class="btn btn-ghost btn-sm">Annuler</a>
+        <button type="submit" class="btn btn-danger solid">Oui, supprimer</button>
+        <a href="{% url 'liste_employes' %}" class="btn btn-ghost">Annuler</a>
     </form>
 </div>
 {% endblock %}

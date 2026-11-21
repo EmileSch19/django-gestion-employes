@@ -1,29 +1,33 @@
 {% extends "employe/base.html" %}
 
 {% block title %}{{ titre }}{% endblock %}
+{% block content_class %}narrow{% endblock %}
 
 {% block content %}
-<h1 class="text-2xl font-bold mb-4">{{ titre }}</h1>
+<a href="{% url 'liste_employes' %}" class="muted small">← Retour à la liste</a>
+<h1 class="h1" style="margin: 8px 0 24px">{{ titre }}</h1>
 
-<form method="post" class="space-y-4" novalidate>
-    {% csrf_token %}
-    {% if form.non_field_errors %}
-    <div class="alert alert-error alert-soft" role="alert">{{ form.non_field_errors }}</div>
-    {% endif %}
+<div class="box form-box">
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        <div class="alert alert-error" role="alert">{{ form.non_field_errors|join:" " }}</div>
+        {% endif %}
 
-    {% for field in form %}
-    <div class="space-y-1">
-        <label for="{{ field.id_for_label }}" class="block font-medium">{{ field.label }}</label>
-        {{ field }}
-        {% for error in field.errors %}
-        <p class="text-error text-sm" role="alert">{{ error }}</p>
+        {% for field in form %}
+        <div class="field-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% for error in field.errors %}
+            <p class="error" id="{{ field.id_for_label }}-error">{{ error }}</p>
+            {% endfor %}
+        </div>
         {% endfor %}
-    </div>
-    {% endfor %}
 
-    <div class="flex gap-2">
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
-        <a href="{% url 'liste_employes' %}" class="btn btn-ghost">Annuler</a>
-    </div>
-</form>
+        <div class="form-actions">
+            <button type="submit" class="btn">Enregistrer</button>
+            <a href="{% url 'liste_employes' %}" class="btn btn-ghost">Annuler</a>
+        </div>
+    </form>
+</div>
 {% endblock %}
