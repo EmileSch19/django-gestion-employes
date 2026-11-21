@@ -16,7 +16,7 @@ Application Django de gestion des employés (CRUD complet) avec connexion et com
 
 ## Stack
 
-Python · Django 6 · PostgreSQL (Neon) en production, SQLite en local · CSS maison (thème « Sable » clair/sombre) · WhiteNoise · Vercel
+Python · Django 6 · PostgreSQL (Neon) en production, SQLite en local · CSS maison (thème « Prune » clair/sombre) · WhiteNoise · Vercel
 
 ## Lancer en local
 

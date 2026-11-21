@@ -1,16 +1,16 @@
-/* ================= Direction D « Sable » — clair et sombre ================= */
+/* ================= Direction D (mise en page « Sable »), palette « Prune » — clair et sombre ================= */
 
 :root,
 [data-theme="light"] {
-  --bg: #F4EFE6;
-  --surface: #FFFBF5;
-  --fg: #2B2118;
-  --muted: #6B5B4B;
-  --line: #E4D9C8;
-  --accent: #A8461F;
-  --accent-hover: #8E3A19;
+  --bg: #F7F4F7;
+  --surface: #FFFFFF;
+  --fg: #241A22;
+  --muted: #6A5A66;
+  --line: #E8DEE6;
+  --accent: #7A2E6E;
+  --accent-hover: #62235A;
   --on-accent: #FFFFFF;
-  --accent-soft: #F1DDD0;
+  --accent-soft: #F1E1EE;
   --danger: #A11B1B;
   --danger-soft: #F6DCDC;
   --success: #2F6B3A;
@@ -19,15 +19,15 @@
 }
 
 [data-theme="dark"] {
-  --bg: #1C1814;
-  --surface: #27211C;
-  --fg: #F3ECE3;
-  --muted: #BFAF9C;
-  --line: #3A3129;
-  --accent: #E07A4F;
-  --accent-hover: #EA8F67;
-  --on-accent: #1C1814;
-  --accent-soft: #3F2A1F;
+  --bg: #1A1419;
+  --surface: #241C22;
+  --fg: #F1E8EF;
+  --muted: #BBA9B7;
+  --line: #3A2E37;
+  --accent: #D58AC6;
+  --accent-hover: #E2A3D6;
+  --on-accent: #1A1419;
+  --accent-soft: #3D2738;
   --danger: #F28B82;
   --danger-soft: #3D2020;
   --success: #8FD19E;
